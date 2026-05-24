@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>🎁 Surprise 🎉</title>
+<title>🎁 Surprise</title>
 
 <style>
 body {
     margin: 0;
     overflow: hidden;
-    text-align: center;
     background: linear-gradient(pink, purple);
     font-family: Arial;
+    text-align: center;
     color: white;
 }
 
+/* gift box */
 #gift {
-    font-size: 100px;
-    margin-top: 150px;
+    font-size: 120px;
+    margin-top: 180px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
+/* hidden content */
 #content {
     display: none;
 }
 
+/* photo */
 img {
     width: 220px;
     border-radius: 20px;
@@ -30,6 +34,7 @@ img {
     box-shadow: 0 0 20px white;
 }
 
+/* balloons */
 .balloon {
     position: absolute;
     width: 40px;
@@ -42,8 +47,17 @@ img {
     from { transform: translateY(100vh); }
     to { transform: translateY(-10vh); }
 }
-</style>
 
+/* text animation */
+h1 {
+    animation: pop 1s ease-in-out;
+}
+
+@keyframes pop {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+</style>
 </head>
 
 <body>
@@ -51,26 +65,26 @@ img {
 <div id="gift" onclick="openGift()">🎁</div>
 
 <div id="content">
-    <h1>Happy Birthday 🎉</h1>
-    <p>გილოცავ დაბადების დღეს 💖</p>
+    <h1>🎉 Happy Birthday 🎉</h1>
+
+    <p>💖 wish you all the best 💖</p>
+
     <img src="photo.jpg">
 </div>
-
-<audio id="music">
-    <source src="music.mp3" type="audio/mpeg">
-</audio>
 
 <script>
 function openGift() {
     document.getElementById("gift").style.display = "none";
     document.getElementById("content").style.display = "block";
-    document.getElementById("music").play();
 
-    for (let i = 0; i < 25; i++) {
+    // balloons 🎈
+    for (let i = 0; i < 30; i++) {
         let balloon = document.createElement("div");
         balloon.className = "balloon";
+
         balloon.style.left = Math.random() * 100 + "vw";
-        balloon.style.background = hsl(${Math.random()*360},70%,60%);
+        balloon.style.background = `hsl(${Math.random()*360},70%,60%)`;
+
         document.body.appendChild(balloon);
     }
 }
