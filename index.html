@@ -17,7 +17,6 @@
 
         body {
             background-color: #0d0b18;
-            /* კოსმიური მუქი ფონი ვარსკვლავებით */
             background-image: 
                 radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
                 radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
@@ -27,7 +26,7 @@
             min-height: 100vh;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             overflow-x: hidden;
-            overflow-y: hidden; /* იკეტება გახსნამდე */
+            overflow-y: hidden;
         }
 
         .welcome-screen {
@@ -54,7 +53,6 @@
             50% { transform: translateY(-10px); }
         }
 
-        /* საჩუქრის თავსახური */
         .gift-top {
             width: 210px;
             height: 45px;
@@ -76,7 +74,6 @@
             background: #ffcc00;
         }
 
-        /* ყუთის ტანი */
         .gift-bottom {
             width: 190px;
             height: 180px;
@@ -97,7 +94,6 @@
             background: #ffcc00;
         }
 
-        /* პირველი ცენტრალური ფოტო ყუთიდან */
         .photo-reveal-container {
             position: absolute;
             width: 150px;
@@ -131,7 +127,6 @@
             white-space: nowrap;
         }
 
-        /* გახსნის ეფექტები */
         .gift-box.opened .gift-top {
             transform: translateY(-200px) rotate(55deg);
             opacity: 0;
@@ -166,7 +161,6 @@
             60% { transform: translateY(-5px); }
         }
 
-        /* სექცია 2: გალერეა და მილოცვა */
         .content-screen {
             min-height: 100vh;
             display: flex;
@@ -210,7 +204,6 @@
             opacity: 0.9;
         }
 
-        /* ასიმეტრიული გალერეის სტრუქტურა */
         .grid-gallery {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -230,7 +223,6 @@
             transition: transform 0.4s ease, border-color 0.4s ease;
         }
 
-        /* უჯრების ზომები ზუსტად სქრინის მიხედვით */
         .grid-gallery .card-box:nth-child(1) { height: 280px; }
         .grid-gallery .card-box:nth-child(2) { height: 440px; grid-row: span 2; }
         .grid-gallery .card-box:nth-child(3) { height: 280px; }
@@ -242,7 +234,6 @@
             object-fit: cover;
         }
 
-        /* მილოცვის ბარათი */
         .final-card {
             background: rgba(20, 18, 38, 0.8);
             border: 1px solid rgba(255, 204, 0, 0.4);
@@ -282,7 +273,7 @@
         }
 
         @keyframes explodeOut {
-            0% { transform: translate(0, 0) scale(0.4); opacity: 0; }
+            0 { transform: translate(0, 0) scale(0.4); opacity: 0; }
             15% { opacity: 1; }
             100% { transform: translate(var(--x), var(--y)) scale(1); opacity: 0; }
         }
@@ -298,7 +289,7 @@
             <div class="gift-bottom"><div class="bottom-stripe"></div></div>
             
             <div class="photo-reveal-container">
-                <img src="https://picsum.photos/id/1025/400/400" id="mainCircleImg" alt="Saba">
+                <img src="saba1.jpg" alt="Saba">
             </div>
 
             <div class="main-title">Happy Birthday Saba!!! 🎉</div>
@@ -315,10 +306,10 @@
         </div>
 
         <div class="grid-gallery">
-            <div class="card-box"><img src="https://picsum.photos/id/64/400/400" id="gImg1" alt="Saba 1"></div>
-            <div class="card-box"><img src="https://picsum.photos/id/65/400/600" id="gImg2" alt="Saba 2"></div>
-            <div class="card-box"><img src="https://picsum.photos/id/104s/400/400" id="gImg3" alt="Saba 3"></div>
-            <div class="card-box"><img src="https://picsum.photos/id/249/800/400" id="gImg4" alt="Saba 4"></div>
+            <div class="card-box"><img src="saba1.jpg" alt="Saba 1"></div>
+            <div class="card-box"><img src="saba2.jpg" alt="Saba 2"></div>
+            <div class="card-box"><img src="saba3.jpg" alt="Saba 3"></div>
+            <div class="card-box"><img src="saba4.jpg" alt="Saba 4"></div>
         </div>
 
         <div class="final-card">
@@ -329,23 +320,6 @@
     </div>
 
     <script>
-        // საბას ოთხივე ორიგინალური ფოტოს უსაფრთხო ბაზა (ინტერნეტ-ბლოკირების გარეშე)
-        const sabaPics = [
-            "https://picsum.photos/id/1025/500/500", // ფოტო 1
-            "https://picsum.photos/id/64/500/500",   // ფოტო 2
-            "https://picsum.photos/id/65/500/700",   // ფოტო 3
-            "https://picsum.photos/id/249/700/500"   // ფოტო 4
-        ];
-
-        // ფოტოების რეალური ჩატვირთვა საიტის გახსნისთანავე
-        document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById('mainCircleImg').src = sabaPics[0];
-            document.getElementById('gImg1').src = sabaPics[0];
-            document.getElementById('gImg2').src = sabaPics[1];
-            document.getElementById('gImg3').src = sabaPics[2];
-            document.getElementById('gImg4').src = sabaPics[3];
-        });
-
         function openPresent() {
             const box = document.getElementById('clickBox');
             const music = document.getElementById('bday-music');
@@ -361,10 +335,9 @@
             scrollTag.style.opacity = '1';
             scrollTag.style.transform = 'translateY(0)';
 
-            music.play().catch(e => console.log("Audio playing..."));
+            music.play().catch(e => console.log("Audio connected"));
             spawnBalloons();
 
-            // ავტომატური რბილი სქროლი მეორე გვერდზე
             setTimeout(() => {
                 document.getElementById('mainContent').scrollIntoView({ behavior: 'smooth' });
             }, 3600);
