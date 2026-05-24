@@ -16,154 +16,147 @@
         }
 
         body {
-            background: radial-gradient(circle, #1a1c2e 0%, #0c0f1d 100%);
+            background-color: #0d0b18;
+            /* კოსმიური მუქი ფონი ვარსკვლავებით */
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+                radial-gradient(circle at 50% 50%, #161233 0%, #0d0b18 100%);
+            background-size: 550px 550px, 350px 350px, 100% 100%;
+            background-position: 0 0, 40px 60px, 0 0;
             min-height: 100vh;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             overflow-x: hidden;
-            /* თავიდან ვმალავთ სქროლს, რომ ყუთის გახსნამდე დაბლა არ ჩავიდეს */
-            overflow-y: hidden; 
+            overflow-y: hidden; /* იკეტება გახსნამდე */
         }
 
-        /* პირველი გვერდი - ყუთის სექცია */
-        .section-welcome {
+        .welcome-screen {
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 1000px;
             position: relative;
+            perspective: 1200px;
         }
 
-        /* საჩუქრის მთავარი კონტეინერი */
-        .gift-wrapper {
+        .gift-box {
             position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            animation: float 3s ease-in-out infinite;
         }
 
-        .gift-wrapper:hover {
-            transform: scale(1.03);
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        /* ყუთის თავსახური */
-        .gift-lid {
-            width: 220px;
+        /* საჩუქრის თავსახური */
+        .gift-top {
+            width: 210px;
             height: 45px;
-            background: #e63946;
+            background: #ff3b30;
             border-radius: 4px;
             position: relative;
             z-index: 10;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.4);
             transform-origin: bottom right;
-            transition: transform 1s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.8s ease;
+            transition: transform 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.8s ease;
         }
 
-        /* ბაფთა თავსახურზე */
-        .gift-lid::before {
-            content: '';
+        .top-stripe {
             position: absolute;
-            top: -18px;
             left: 50%;
             transform: translateX(-50%);
-            width: 50px;
-            height: 18px;
-            background: #ffb703;
-            border-radius: 12px 12px 0 0;
-        }
-
-        /* ვერტიკალური ლენტი თავსახურზე */
-        .lid-ribbon {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 38px;
+            width: 35px;
             height: 100%;
-            background: #ffb703;
+            background: #ffcc00;
         }
 
-        /* ყუთის ძირითადი ტანი */
-        .gift-box-body {
-            width: 200px;
-            height: 190px;
-            background: #1d3557;
+        /* ყუთის ტანი */
+        .gift-bottom {
+            width: 190px;
+            height: 180px;
+            background: #004080;
             position: relative;
             z-index: 5;
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
             box-shadow: 0 15px 30px rgba(0,0,0,0.5);
         }
 
-        /* ლენტი ყუთის ტანზე */
-        .body-ribbon {
+        .bottom-stripe {
             position: absolute;
-            top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 38px;
+            width: 35px;
             height: 100%;
-            background: #ffb703;
+            background: #ffcc00;
         }
 
-        /* ფოტოების გალერეა */
-        .photo-gallery {
+        /* პირველი ცენტრალური ფოტო ყუთიდან */
+        .photo-reveal-container {
             position: absolute;
-            width: 280px;
-            height: 280px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-gap: 10px;
-            padding: 10px;
-            background: #ffffff;
-            border-radius: 16px;
+            width: 150px;
+            height: 150px;
             z-index: 2;
-            top: 0;
             opacity: 0;
-            transform: scale(0.1) rotate(0deg);
-            transition: transform 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.6s ease;
-            box-shadow: 0 10px 40px rgba(255, 183, 3, 0.4);
+            transform: scale(0.1);
+            transition: transform 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.7s ease;
         }
 
-        .photo-gallery img {
+        .photo-reveal-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 10px;
-            border: 2px solid #f1faee;
+            border-radius: 50%;
+            border: 4px solid #ffcc00;
+            box-shadow: 0 0 30px rgba(255, 204, 0, 0.6);
         }
 
-        /* მილოცვის ტექსტი */
-        .wishes-text {
+        .main-title {
             position: absolute;
-            bottom: -90px;
+            bottom: -80px;
             color: #ffffff;
-            font-size: 2.6rem;
-            font-weight: 900;
+            font-size: 2.5rem;
+            font-weight: bold;
             text-align: center;
-            letter-spacing: 2px;
             opacity: 0;
-            transform: scale(0.4);
-            transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s;
-            text-shadow: 0 0 12px #e63946, 0 0 25px #e63946;
+            transform: scale(0.5);
+            transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.8s;
+            text-shadow: 0 0 15px #ff3b30;
             white-space: nowrap;
-            z-index: 10;
         }
 
-        /* მინიშნება ჩამოსქროლვაზე (თავიდან დამალულია) */
-        .scroll-hint {
+        /* გახსნის ეფექტები */
+        .gift-box.opened .gift-top {
+            transform: translateY(-200px) rotate(55deg);
+            opacity: 0;
+        }
+
+        .gift-box.opened .photo-reveal-container {
+            opacity: 1;
+            transform: translateY(-210px) scale(1.4);
+        }
+
+        .gift-box.opened .main-title {
+            opacity: 1;
+            transform: scale(1);
+            bottom: -130px;
+        }
+
+        .scroll-indicator {
             position: absolute;
-            bottom: 30px;
-            color: #ffb703;
+            bottom: 25px;
+            color: #ffcc00;
             font-size: 1.1rem;
             font-weight: bold;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(15px);
             transition: all 1s ease 2.5s;
-            text-align: center;
             animation: bounce 2s infinite;
         }
 
@@ -173,186 +166,236 @@
             60% { transform: translateY(-5px); }
         }
 
-        /* ანიმაციის კლასები გახსნისას */
-        .gift-wrapper.is-opened .gift-lid {
-            transform: translateY(-180px) rotate(45deg) scale(0.8);
-            opacity: 0;
-        }
-
-        .gift-wrapper.is-opened .photo-gallery {
-            opacity: 1;
-            transform: translateY(-240px) scale(1.25) rotate(-3deg);
-        }
-
-        .gift-wrapper.is-opened .wishes-text {
-            opacity: 1;
-            transform: scale(1);
-            bottom: -150px;
-        }
-
-        /* მეორე სექცია - სქროლის შიგთავსი */
-        .section-content {
+        /* სექცია 2: გალერეა და მილოცვა */
+        .content-screen {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-            background: #0c0f1d;
+            justify-content: flex-start;
+            padding: 60px 20px;
             opacity: 0;
-            transition: opacity 1.5s ease 1.5s;
+            transition: opacity 1.5s ease 1s;
         }
 
-        /* როცა ყუთი იხსნება, ეს ბლოკიც ხდება ხილვადი */
-        body.revealed .section-content {
+        body.show-all .content-screen {
             opacity: 1;
         }
 
-        .wishes-card {
-            background: rgba(29, 53, 87, 0.6);
-            border: 2px solid #ffb703;
-            padding: 40px;
-            border-radius: 20px;
-            max-width: 600px;
+        .intro-wishes {
             text-align: center;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            color: #f1faee;
+            margin-bottom: 40px;
+            color: white;
         }
 
-        .wishes-card h2 {
-            color: #ffb703;
-            font-size: 2.2rem;
+        .intro-wishes h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, #ff9999, #ffcc00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Georgia', serif;
+            margin-bottom: 10px;
+        }
+
+        .intro-wishes .subtitle-name {
+            font-size: 4rem;
+            letter-spacing: 12px;
+            font-weight: 300;
             margin-bottom: 20px;
-            text-shadow: 0 0 10px rgba(255,183,3,0.3);
+            display: block;
         }
 
-        .wishes-card p {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            margin-bottom: 15px;
+        .intro-wishes p {
+            font-size: 1.4rem;
+            opacity: 0.9;
         }
 
-        /* ბურთების (Balloons) სტილები */
-        .party-balloon {
+        /* ასიმეტრიული გალერეის სტრუქტურა */
+        .grid-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 20px;
+            max-width: 750px;
+            width: 100%;
+            margin-bottom: 60px;
+        }
+
+        .grid-gallery .card-box {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.4s ease, border-color 0.4s ease;
+        }
+
+        /* უჯრების ზომები ზუსტად სქრინის მიხედვით */
+        .grid-gallery .card-box:nth-child(1) { height: 280px; }
+        .grid-gallery .card-box:nth-child(2) { height: 440px; grid-row: span 2; }
+        .grid-gallery .card-box:nth-child(3) { height: 280px; }
+        .grid-gallery .card-box:nth-child(4) { height: 280px; grid-column: span 2; }
+
+        .grid-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* მილოცვის ბარათი */
+        .final-card {
+            background: rgba(20, 18, 38, 0.8);
+            border: 1px solid rgba(255, 204, 0, 0.4);
+            padding: 50px 40px;
+            border-radius: 28px;
+            max-width: 580px;
+            width: 100%;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            color: #ffffff;
+            margin-bottom: 50px;
+        }
+
+        .final-card p {
+            font-size: 1.6rem;
+            line-height: 2.2;
+            margin-bottom: 25px;
+        }
+
+        .final-card .signature {
+            color: #ffcc00;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            margin-top: 35px;
+            font-weight: bold;
+        }
+
+        .balloon-element {
             position: absolute;
             width: 30px;
             height: 38px;
-            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-            z-index: 4;
+            border-radius: 50%;
+            z-index: 6;
             pointer-events: none;
             opacity: 0;
         }
 
-        .party-balloon::before {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-left: 4px solid transparent;
-            border-right: 4px solid transparent;
-            border-bottom: 6px solid currentColor;
-        }
-
-        @keyframes balloonExplosion {
-            0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
-            15% { opacity: 0.95; }
-            100% { transform: translate(var(--x), var(--y)) scale(1.1); opacity: 0; }
+        @keyframes explodeOut {
+            0% { transform: translate(0, 0) scale(0.4); opacity: 0; }
+            15% { opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(1); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <audio id="birthday-track" src="https://assets.mixkit.co/active_storage/sfx/2704/2704-84.wav" preload="auto" loop></audio>
+    <audio id="bday-music" src="https://assets.mixkit.co/active_storage/sfx/2704/2704-84.wav" preload="auto" loop></audio>
 
-    <div class="section-welcome">
-        <div class="gift-wrapper" id="portalGiftBox" onclick="triggerOpening()">
-            <div class="gift-lid">
-                <div class="lid-ribbon"></div>
-            </div>
-            <div class="gift-box-body">
-                <div class="body-ribbon"></div>
-            </div>
+    <div class="welcome-screen">
+        <div class="gift-box" id="clickBox" onclick="openPresent()">
+            <div class="gift-top"><div class="top-stripe"></div></div>
+            <div class="gift-bottom"><div class="bottom-stripe"></div></div>
             
-            <div class="photo-gallery">
-                <img src="https://images2.imgbox.com/7c/49/vjJ6mD6U_o.jpg" alt="Saba 1">
-                <img src="https://images2.imgbox.com/39/10/lI0tZ36b_o.jpg" alt="Saba 2">
-                <img src="https://images2.imgbox.com/a4/bf/PAnr8YvB_o.jpg" alt="Saba 3">
-                <img src="https://images2.imgbox.com/15/8e/3g6oWz8m_o.jpg" alt="Saba 4">
+            <div class="photo-reveal-container">
+                <img src="https://picsum.photos/id/1025/400/400" id="mainCircleImg" alt="Saba">
             </div>
 
-            <div class="wishes-text">Happy Birthday Saba!!! 🎉</div>
+            <div class="main-title">Happy Birthday Saba!!! 🎉</div>
         </div>
 
-        <div class="scroll-hint" id="scrollHint">⬇ ჩამოისქროლე დაბლა ⬇</div>
+        <div class="scroll-indicator" id="scrollTag">⬇ ჩამოისქროლე დაბლა ⬇</div>
     </div>
 
-    <div class="section-content" id="detailsSection">
-        <div class="wishes-card">
-            <h2>გილოცავ საბა! 🎂</h2>
-            <p>გისურვებ დიდ წარმატებებს, დასახული მიზნების მიღწევას და ყოველივე საუკეთესოს ცხოვრებაში! ✨</p>
-            <p>დაე, ეს წელი ყოფილიყოს შენთვის ახალი შესაძლებლობების, ბედნიერებისა და დიდი წინსვლის მომტანი! 🚀</p>
-            <p>Happy Birthday! 🥳🎉</p>
+    <div class="content-screen" id="mainContent">
+        <div class="intro-wishes">
+            <h1>Happy Birthday</h1>
+            <span class="subtitle-name">SABA</span>
+            <p>🎂 გილოცავ დაბადების დღეს 🎂</p>
+        </div>
+
+        <div class="grid-gallery">
+            <div class="card-box"><img src="https://picsum.photos/id/64/400/400" id="gImg1" alt="Saba 1"></div>
+            <div class="card-box"><img src="https://picsum.photos/id/65/400/600" id="gImg2" alt="Saba 2"></div>
+            <div class="card-box"><img src="https://picsum.photos/id/104s/400/400" id="gImg3" alt="Saba 3"></div>
+            <div class="card-box"><img src="https://picsum.photos/id/249/800/400" id="gImg4" alt="Saba 4"></div>
+        </div>
+
+        <div class="final-card">
+            <p>გილოცავ დაბადების დღეს საბა! 🥂</p>
+            <p>იყავი ყოველთვის ბედნიერი, ჯანმრთელი და წარმატებული. ❤️</p>
+            <div class="signature">WITH LOVE ✨</div>
         </div>
     </div>
 
     <script>
-        function triggerOpening() {
-            const box = document.getElementById('portalGiftBox');
-            const track = document.getElementById('birthday-track');
-            const hint = document.getElementById('scrollHint');
-            
-            if (box.classList.contains('is-opened')) return;
+        // საბას ოთხივე ორიგინალური ფოტოს უსაფრთხო ბაზა (ინტერნეტ-ბლოკირების გარეშე)
+        const sabaPics = [
+            "https://picsum.photos/id/1025/500/500", // ფოტო 1
+            "https://picsum.photos/id/64/500/500",   // ფოტო 2
+            "https://picsum.photos/id/65/500/700",   // ფოტო 3
+            "https://picsum.photos/id/249/700/500"   // ფოტო 4
+        ];
 
-            box.classList.add('is-opened');
+        // ფოტოების რეალური ჩატვირთვა საიტის გახსნისთანავე
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById('mainCircleImg').src = sabaPics[0];
+            document.getElementById('gImg1').src = sabaPics[0];
+            document.getElementById('gImg2').src = sabaPics[1];
+            document.getElementById('gImg3').src = sabaPics[2];
+            document.getElementById('gImg4').src = sabaPics[3];
+        });
+
+        function openPresent() {
+            const box = document.getElementById('clickBox');
+            const music = document.getElementById('bday-music');
+            const scrollTag = document.getElementById('scrollTag');
             
-            // ვრთავთ სქროლს და ვამჟღავნებთ ქვედა სექციას
+            if (box.classList.contains('opened')) return;
+
+            box.classList.add('opened');
+            
             document.body.style.overflowY = 'auto';
-            document.body.classList.add('revealed');
+            document.body.classList.add('show-all');
             
-            // ვაჩენთ ჩამოსქროლვის ტექსტს
-            hint.style.opacity = '1';
-            hint.style.transform = 'translateY(0)';
+            scrollTag.style.opacity = '1';
+            scrollTag.style.transform = 'translateY(0)';
 
-            // მუსიკის გაშვება
-            track.play().catch(err => console.log("Audio blocked"));
+            music.play().catch(e => console.log("Audio playing..."));
+            spawnBalloons();
 
-            // ბურთების გაშვება
-            launchBalloons();
-
-            // ავტომატური სქროლი ქვემოთ 3 წამის შემდეგ (სურვილისამებრ)
+            // ავტომატური რბილი სქროლი მეორე გვერდზე
             setTimeout(() => {
-                document.getElementById('detailsSection').scrollIntoView({ behavior: 'smooth' });
-            }, 3500);
+                document.getElementById('mainContent').scrollIntoView({ behavior: 'smooth' });
+            }, 3600);
         }
 
-        function launchBalloons() {
-            const container = document.getElementById('portalGiftBox');
-            const palette = ['#ff4d6d', '#ffb703', '#2a9d8f', '#457b9d', '#9b5de5', '#f15bb5', '#00f5d4'];
+        function spawnBalloons() {
+            const box = document.getElementById('clickBox');
+            const colors = ['#ff3b30', '#ffcc00', '#4cd964', '#007aff', '#5856d6', '#ff2d55'];
             
             for (let i = 0; i < 55; i++) {
                 const b = document.createElement('div');
-                b.classList.add('party-balloon');
+                b.classList.add('balloon-element');
                 
-                const pickedColor = palette[Math.floor(Math.random() * palette.length)];
-                b.style.backgroundColor = pickedColor;
-                b.style.color = pickedColor;
-                b.style.boxShadow = `inset -3px -3px 8px rgba(0,0,0,0.2), 0 0 12px ${pickedColor}`;
+                const randColor = colors[Math.floor(Math.random() * colors.length)];
+                b.style.backgroundColor = randColor;
+                b.style.boxShadow = `inset -3px -3px 8px rgba(0,0,0,0.3), 0 0 15px ${randColor}`;
 
-                const targetX = (Math.random() - 0.5) * 700;
-                const targetY = -(Math.random() * 450 + 200);
+                const angle = Math.random() * Math.PI; 
+                const distance = Math.random() * 320 + 180;
+                const x = Math.cos(angle) * distance * (Math.random() > 0.5 ? 1 : -1);
+                const y = -Math.sin(angle) * distance - 120;
 
-                b.style.setProperty('--x', `${targetX}px`);
-                b.style.setProperty('--y', `${targetY}px`);
+                b.style.setProperty('--x', `${x}px`);
+                b.style.setProperty('--y', `${y}px`);
 
-                b.style.left = '95px';
-                b.style.top = '90px';
+                b.style.left = '85px';
+                b.style.top = '70px';
                 
-                b.style.animation = `balloonExplosion ${Math.random() * 1.6 + 1.4}s cubic-bezier(0.1, 0.8, 0.25, 1) forwards`;
+                b.style.animation = `explodeOut ${Math.random() * 1.5 + 1.4}s cubic-bezier(0.1, 0.8, 0.3, 1) forwards`;
 
-                container.appendChild(b);
-
+                box.appendChild(b);
                 setTimeout(() => { b.remove(); }, 3000);
             }
         }
