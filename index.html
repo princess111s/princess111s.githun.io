@@ -241,3 +241,121 @@
             border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
             z-index: 4;
             pointer-events: none;
+            opacity: 0;
+        }
+
+        .party-balloon::before {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-bottom: 6px solid currentColor;
+        }
+
+        @keyframes balloonExplosion {
+            0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+            15% { opacity: 0.95; }
+            100% { transform: translate(var(--x), var(--y)) scale(1.1); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="birthday-track" src="https://assets.mixkit.co/active_storage/sfx/2704/2704-84.wav" preload="auto" loop></audio>
+
+    <div class="section-welcome">
+        <div class="gift-wrapper" id="portalGiftBox" onclick="triggerOpening()">
+            <div class="gift-lid">
+                <div class="lid-ribbon"></div>
+            </div>
+            <div class="gift-box-body">
+                <div class="body-ribbon"></div>
+            </div>
+            
+            <div class="photo-gallery">
+                <img src="https://images2.imgbox.com/7c/49/vjJ6mD6U_o.jpg" alt="Saba 1">
+                <img src="https://images2.imgbox.com/39/10/lI0tZ36b_o.jpg" alt="Saba 2">
+                <img src="https://images2.imgbox.com/a4/bf/PAnr8YvB_o.jpg" alt="Saba 3">
+                <img src="https://images2.imgbox.com/15/8e/3g6oWz8m_o.jpg" alt="Saba 4">
+            </div>
+
+            <div class="wishes-text">Happy Birthday Saba!!! 🎉</div>
+        </div>
+
+        <div class="scroll-hint" id="scrollHint">⬇ ჩამოისქროლე დაბლა ⬇</div>
+    </div>
+
+    <div class="section-content" id="detailsSection">
+        <div class="wishes-card">
+            <h2>გილოცავ საბა! 🎂</h2>
+            <p>გისურვებ დიდ წარმატებებს, დასახული მიზნების მიღწევას და ყოველივე საუკეთესოს ცხოვრებაში! ✨</p>
+            <p>დაე, ეს წელი ყოფილიყოს შენთვის ახალი შესაძლებლობების, ბედნიერებისა და დიდი წინსვლის მომტანი! 🚀</p>
+            <p>Happy Birthday! 🥳🎉</p>
+        </div>
+    </div>
+
+    <script>
+        function triggerOpening() {
+            const box = document.getElementById('portalGiftBox');
+            const track = document.getElementById('birthday-track');
+            const hint = document.getElementById('scrollHint');
+            
+            if (box.classList.contains('is-opened')) return;
+
+            box.classList.add('is-opened');
+            
+            // ვრთავთ სქროლს და ვამჟღავნებთ ქვედა სექციას
+            document.body.style.overflowY = 'auto';
+            document.body.classList.add('revealed');
+            
+            // ვაჩენთ ჩამოსქროლვის ტექსტს
+            hint.style.opacity = '1';
+            hint.style.transform = 'translateY(0)';
+
+            // მუსიკის გაშვება
+            track.play().catch(err => console.log("Audio blocked"));
+
+            // ბურთების გაშვება
+            launchBalloons();
+
+            // ავტომატური სქროლი ქვემოთ 3 წამის შემდეგ (სურვილისამებრ)
+            setTimeout(() => {
+                document.getElementById('detailsSection').scrollIntoView({ behavior: 'smooth' });
+            }, 3500);
+        }
+
+        function launchBalloons() {
+            const container = document.getElementById('portalGiftBox');
+            const palette = ['#ff4d6d', '#ffb703', '#2a9d8f', '#457b9d', '#9b5de5', '#f15bb5', '#00f5d4'];
+            
+            for (let i = 0; i < 55; i++) {
+                const b = document.createElement('div');
+                b.classList.add('party-balloon');
+                
+                const pickedColor = palette[Math.floor(Math.random() * palette.length)];
+                b.style.backgroundColor = pickedColor;
+                b.style.color = pickedColor;
+                b.style.boxShadow = `inset -3px -3px 8px rgba(0,0,0,0.2), 0 0 12px ${pickedColor}`;
+
+                const targetX = (Math.random() - 0.5) * 700;
+                const targetY = -(Math.random() * 450 + 200);
+
+                b.style.setProperty('--x', `${targetX}px`);
+                b.style.setProperty('--y', `${targetY}px`);
+
+                b.style.left = '95px';
+                b.style.top = '90px';
+                
+                b.style.animation = `balloonExplosion ${Math.random() * 1.6 + 1.4}s cubic-bezier(0.1, 0.8, 0.25, 1) forwards`;
+
+                container.appendChild(b);
+
+                setTimeout(() => { b.remove(); }, 3000);
+            }
+        }
+    </script>
+</body>
+</html>
