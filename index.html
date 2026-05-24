@@ -1,94 +1,247 @@
 <!DOCTYPE html>
-<html>
+<html lang="ka">
 <head>
-<title>🎁 Surprise</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Saba!</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-<style>
-body {
-    margin: 0;
-    overflow: hidden;
-    background: linear-gradient(pink, purple);
-    font-family: Arial;
-    text-align: center;
-    color: white;
-}
+        body {
+            background: linear-gradient(135deg, #111, #222);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
 
-/* gift box */
-#gift {
-    font-size: 120px;
-    margin-top: 180px;
-    cursor: pointer;
-    transition: 0.3s;
-}
+        /* საჩუქრის კონტეინერი */
+        .gift-container {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
-/* hidden content */
-#content {
-    display: none;
-}
+        /* ყუთის თავსახური */
+        .gift-lid {
+            width: 240px;
+            height: 55px;
+            background-color: #ff3366;
+            border-radius: 5px;
+            position: relative;
+            z-index: 5;
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.5s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
 
-/* photo */
-img {
-    width: 220px;
-    border-radius: 20px;
-    margin-top: 20px;
-    box-shadow: 0 0 20px white;
-}
+        /* თავსახურის ბაფთა */
+        .gift-lid::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 45px;
+            height: 20px;
+            background-color: #ffcc00;
+            border-radius: 10px 10px 0 0;
+        }
 
-/* balloons */
-.balloon {
-    position: absolute;
-    width: 40px;
-    height: 60px;
-    border-radius: 50%;
-    animation: float 6s linear infinite;
-}
+        /* ყუთის ტანი */
+        .gift-body {
+            width: 220px;
+            height: 220px;
+            background-color: #1a4968;
+            position: relative;
+            z-index: 4;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+        }
 
-@keyframes float {
-    from { transform: translateY(100vh); }
-    to { transform: translateY(-10vh); }
-}
+        /* ლენტი ყუთზე */
+        .ribbon {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 45px;
+            height: 100%;
+            background-color: #ffcc00;
+        }
 
-/* text animation */
-h1 {
-    animation: pop 1s ease-in-out;
-}
+        .gift-lid .ribbon {
+            height: 55px;
+        }
 
-@keyframes pop {
-    0% { transform: scale(0); }
-    100% { transform: scale(1); }
-}
-</style>
+        /* ფოტოების კოლაჟის კონტეინერი */
+        .photo-collage {
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 8px;
+            padding: 8px;
+            background: white;
+            border-radius: 15px;
+            z-index: 2;
+            top: 20px;
+            opacity: 0;
+            transform: scale(0.1) rotate(0deg);
+            transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+            box-shadow: 0 0 30px rgba(255, 204, 0, 0.5);
+        }
+
+        .photo-collage img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* ტექსტი */
+        .wishes {
+            position: absolute;
+            bottom: -100px;
+            color: #fff;
+            font-size: 2.3rem;
+            text-align: center;
+            font-weight: bold;
+            letter-spacing: 1px;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 1s ease 1.2s;
+            text-shadow: 0 0 10px #ff3366, 0 0 20px #ff3366;
+            white-space: nowrap;
+            z-index: 5;
+        }
+
+        /* ეფექტები გახსნისას */
+        .gift-container.open .gift-lid {
+            transform: translateY(-200px) rotate(-25deg);
+            opacity: 0;
+        }
+
+        .gift-container.open .photo-collage {
+            opacity: 1;
+            transform: translateY(-220px) scale(1.2) rotate(5deg);
+        }
+
+        .gift-container.open .wishes {
+            opacity: 1;
+            transform: scale(1);
+            bottom: -140px;
+        }
+
+        /* ბურთების (Balloon) სტილი */
+        .balloon {
+            position: absolute;
+            width: 25px;
+            height: 32px;
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            z-index: 3;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        /* ბურთის ძაფი */
+        .balloon::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 12px;
+            width: 1px;
+            height: 8px;
+            background-color: rgba(255,255,255,0.5);
+        }
+
+        @keyframes explosion {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) scale(0.7);
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<div id="gift" onclick="openGift()">🎁</div>
+    <audio id="birthday-song" src="https://assets.mixkit.co/active_storage/sfx/2704/2704-84.wav" preload="auto" loop></audio>
 
-<div id="content">
-    <h1>🎉 Happy Birthday 🎉</h1>
+    <div class="gift-container" id="giftBox" onclick="openGift()">
+        <div class="gift-lid">
+            <div class="ribbon"></div>
+        </div>
+        <div class="gift-body">
+            <div class="ribbon"></div>
+        </div>
+        
+        <div class="photo-collage" id="collage">
+            <img src="https://images.squarespace-cdn.com/content/v1/60f588c887265c7117fa83d2/1626703273295-88S0V8B0D7P3K1G9V5T8/Saba1.jpg" onerror="this.src='https://picsum.photos/200/300?random=1'" alt="Saba 1">
+            <img src="https://images.squarespace-cdn.com/content/v1/60f588c887265c7117fa83d2/1626703273295-88S0V8B0D7P3K1G9V5T8/Saba2.jpg" onerror="this.src='https://picsum.photos/200/300?random=2'" alt="Saba 2">
+            <img src="https://images.squarespace-cdn.com/content/v1/60f588c887265c7117fa83d2/1626703273295-88S0V8B0D7P3K1G9V5T8/Saba3.jpg" onerror="this.src='https://picsum.photos/200/300?random=3'" alt="Saba 3">
+            <img src="https://images.squarespace-cdn.com/content/v1/60f588c887265c7117fa83d2/1626703273295-88S0V8B0D7P3K1G9V5T8/Saba4.jpg" onerror="this.src='https://picsum.photos/200/300?random=4'" alt="Saba 4">
+        </div>
 
-    <p>💖 wish you all the best 💖</p>
+        <div class="wishes">Happy Birthday Saba!!! 🎉</div>
+    </div>
 
-    <img src="photo.jpg">
-</div>
+    <script>
+        function openGift() {
+            const gift = document.getElementById('giftBox');
+            const song = document.getElementById('birthday-song');
+            
+            if (gift.classList.contains('open')) return;
 
-<script>
-function openGift() {
-    document.getElementById("gift").style.display = "none";
-    document.getElementById("content").style.display = "block";
+            gift.classList.add('open');
 
-    // balloons 🎈
-    for (let i = 0; i < 30; i++) {
-        let balloon = document.createElement("div");
-        balloon.className = "balloon";
+            // მუსიკის ჩართვა
+            song.play().catch(error => console.log("Playback blocked", error));
 
-        balloon.style.left = Math.random() * 100 + "vw";
-        balloon.style.background = `hsl(${Math.random()*360},70%,60%)`;
+            // ბურთების ეფექტი
+            createBalloons();
+        }
 
-        document.body.appendChild(balloon);
-    }
-}
-</script>
+        function createBalloons() {
+            const container = document.getElementById('giftBox');
+            const colors = ['#ff3366', '#ff9900', '#33cc33', '#3399ff', '#cc33ff', '#ffff33'];
+            
+            for (let i = 0; i < 50; i++) {
+                const balloon = document.createElement('div');
+                balloon.classList.add('balloon');
+                
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                balloon.style.backgroundColor = randomColor;
 
+                // გაფრენის მიმართულებები (მარცხნივ, მარჯვნივ, ზემოთ)
+                const x = (Math.random() - 0.5) * 600; 
+                const y = -(Math.random() * 400 + 150); 
+
+                balloon.style.setProperty('--x', `${x}px`);
+                balloon.style.setProperty('--y', `${y}px`);
+
+                balloon.style.left = '110px';
+                balloon.style.top = '100px';
+                balloon.style.animation = `explosion ${Math.random() * 1.5 + 1.2}s cubic-bezier(0.1, 0.8, 0.3, 1) forwards`;
+
+                container.appendChild(balloon);
+
+                setTimeout(() => { balloon.remove(); }, 2700);
+            }
+        }
+    </script>
 </body>
 </html>
